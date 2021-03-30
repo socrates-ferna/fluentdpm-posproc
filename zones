@@ -1,0 +1,74 @@
+
+Build Time: Apr 16 2019 10:39:40  Build Id: 10133 
+Executable Path: C:/PROGRA~1/ANSYSI~1/v194/fluent/ntbin/win64/fluent.exe
+
+-------------------------------------------------------------------------------
+ID    Hostname         Core  O.S.         PID    Vendor      
+-------------------------------------------------------------------------------
+n5    DESKTOP-RD1Q7ED  6/16  Windows-x64  17020  AMD Ryzen 7 
+n4    DESKTOP-RD1Q7ED  5/16  Windows-x64  9932   AMD Ryzen 7 
+n3    DESKTOP-RD1Q7ED  4/16  Windows-x64  16256  AMD Ryzen 7 
+n2    DESKTOP-RD1Q7ED  3/16  Windows-x64  12480  AMD Ryzen 7 
+n1    DESKTOP-RD1Q7ED  2/16  Windows-x64  15964  AMD Ryzen 7 
+n0*   DESKTOP-RD1Q7ED  1/16  Windows-x64  17128  AMD Ryzen 7 
+host  DESKTOP-RD1Q7ED        Windows-x64  1564   AMD Ryzen 7 
+
+MPI Option Selected: ibmmpi
+Selected system interconnect: default
+-------------------------------------------------------------------------------
+
+
+/file> q
+
+> 
+adapt/                  file/                   server/
+adjoint/                mesh/                   solve/
+define/                 parallel/               surface/
+display/                plot/                   views/
+exit                    report/
+
+> define/boundary-conditions/list-zones
+  id  name                       type                material              kind
+----  -------------------------  ------------------  --------------------  ----
+   2  unspecified                fluid               air                   cell
+   6  mouth_teacher              wall                air                   face
+   5  mouth_student              wall                air                   face
+  13  ventilation_outlet         mass-flow-outlet                          face
+   3  interior-unspecified       interior                                  face
+   4  desk                       wall                air                   face
+   7  room_ceiling               wall                air                   face
+   8  room_floor                 wall                air                   face
+   9  room_walls                 wall                air                   face
+  10  student                    wall                air                   face
+  11  teacher                    wall                air                   face
+  12  ventilation_inlet          mass-flow-inlet                           face
+> file
+
+/file> 
+auto-save/                                      set-batch-options
+binary-files?                                   set-tui-version
+confirm-overwrite?                              show-configuration
+data-file-options                               solution-files/
+define-macro                                    start-journal
+execute-macro                                   start-transcript
+export-to-cfd-post                              stop-journal
+export/                                         stop-macro
+fsi/                                            stop-transcript
+hdf-files?                                      transient-export/
+hdfio-options/                                  write-boundary-mesh
+import/                                         write-case
+interpolate/                                    write-case-data
+load-act-tool                                   write-cleanup-script
+read-case                                       write-currently-defined-profiles
+read-case-data                                  write-data
+read-data                                       write-fan-profile
+read-field-functions                            write-field-functions
+read-injections                                 write-injections
+read-journal                                    write-macros
+read-macros                                     write-merge-profiles
+read-profile                                    write-pdat?
+read-settings                                   write-profile
+read-transient-table                            write-settings
+replace-mesh                                    write-surface-clusters/
+
+/file> stop-transcript
