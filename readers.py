@@ -153,8 +153,8 @@ def dpm_reader(filepath):
     mass[['Initial', 'Final', 'Change']] = mass[['Initial', 'Final', 'Change']].apply(pd.to_numeric)
     times = times.loc[:,~times.columns.duplicated()]
     times[['Min', 'Max', 'Avg', 'Stdev', 'Number']] = times[['Min', 'Max', 'Avg', 'Stdev', 'Number']].apply(pd.to_numeric)
-    mass['Fate'] = mass['Fate'].replace(to_replace='Trapped - Zone (\d{1,2})',value=r'\1',regex=True)
-    times['Fate'] = times['Fate'].replace(to_replace='Trapped - Zone (\d{1,2})',value=r'\1',regex=True)
+    mass['Fate'] = mass['Fate'].replace(to_replace=r'Trapped - Zone (\d{1,2})',value=r'\1',regex=True)
+    times['Fate'] = times['Fate'].replace(to_replace=r'Trapped - Zone (\d{1,2})',value=r'\1',regex=True)
     #print(mass)
     #print(times)
     return times,mass,totals
