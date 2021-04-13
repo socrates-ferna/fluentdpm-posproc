@@ -1,0 +1,16 @@
+
+ Fate                   Number           Elapsed Time (s)                       Injection, Index              
+                                       Min        Max        Avg    Std Dev                  Min                  Max
+ ----                   ------  ---------- ---------- ---------- ---------- -------------------- --------------------
+ in Fluid                19260   1.000e-02  1.000e-01  5.500e-02  2.872e-02    water-liquid 62570    water-liquid 4790
+ ----                   ------
+ Injected                19260
+
+                    (*)- Mass Transfer Summary -(*) 
+
+ Fate                            Mass (kg)   
+                           Initial      Final     Change
+ ----                   ---------- ---------- ----------
+ in Fluid                2.400e-10  2.400e-10  0.000e+00
+ ----                   ---------- ---------- ----------
+ Injected                2.400e-10
