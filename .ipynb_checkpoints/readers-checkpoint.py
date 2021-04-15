@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # coding: utf-8
 
 # PENDING:
@@ -5,9 +6,11 @@
 # - FIXED The matchnames only accepts one-digit zones
 # - FIXED totals are strings
 
+# In[5]:
+
+
 import pandas as pd
 import csv
-
 def clean_row(row):
     row = [x for x in row[:] if x]
     return row
@@ -89,6 +92,12 @@ def dpm_reader(filepath):
                     fate = ' '.join(row[0:4])
                     row = row[4:]
                     row.insert(0,fate)
+                    #print(type(row),' is the type')
+                    times.loc[len(times.index)+1] = row
+                elif 'Escaped' in row:
+                    fate = ' '.join(row[0:4])
+                    row = row[4:]
+                    row.insert(0,fate)
                     #print(row)
                     times.loc[len(times.index)+1] = row
                 elif 'Injected' in row:
@@ -153,8 +162,8 @@ def dpm_reader(filepath):
     mass[['Initial', 'Final', 'Change']] = mass[['Initial', 'Final', 'Change']].apply(pd.to_numeric)
     times = times.loc[:,~times.columns.duplicated()]
     times[['Min', 'Max', 'Avg', 'Stdev', 'Number']] = times[['Min', 'Max', 'Avg', 'Stdev', 'Number']].apply(pd.to_numeric)
-    mass['Fate'] = mass['Fate'].replace(to_replace=r'Trapped - Zone (\d{1,2})',value=r'\1',regex=True)
-    times['Fate'] = times['Fate'].replace(to_replace=r'Trapped - Zone (\d{1,2})',value=r'\1',regex=True)
+    #mass['Fate'] = mass['Fate'].replace(to_replace=r'Trapped - Zone (\d{1,2})',value=r'\1',regex=True)
+    #times['Fate'] = times['Fate'].replace(to_replace=r'Trapped - Zone (\d{1,2})',value=r'\1',regex=True)
     #print(mass)
     #print(times)
     return times,mass,totals
@@ -167,7 +176,6 @@ def matchnames(zones,df):
     """
     Matches the names in the zones dataframe with the reported ids in the dpm-extended-summary,
     then, it replaces the ids with the names to facilitate the labeling in plots
-    
     Usage: dataframe, matchlist = matchnames(zones,dataframe)
     """
     trapids = df['Fate'].loc[df['Fate'].str.contains(r'\d{1,2}',regex=True)].to_list()
@@ -177,4 +185,10 @@ def matchnames(zones,df):
     df['Fate'] = df.Fate.replace(to_replace=trapids, value=zones.name.loc[matchlist])
     #print(df)
     return df, matchlist
+
+
+# In[ ]:
+
+
+
 

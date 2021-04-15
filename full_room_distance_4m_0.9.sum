@@ -1,0 +1,20 @@
+
+ Fate                   Number           Elapsed Time (s)                       Injection, Index              
+                                       Min        Max        Avg    Std Dev                  Min                  Max
+ ----                   ------  ---------- ---------- ---------- ---------- -------------------- --------------------
+ in Fluid                83509   3.100e-01  8.000e-01  5.849e-01  1.309e-01    water-liquid 319720    water-liquid  510
+ Trapped - Zone 12       12791   4.649e-06  4.290e-01  2.528e-02  7.403e-02    water-liquid 258120    water-liquid 239420
+ ----                   ------
+ Net                     96300
+ Injected                96300
+
+                    (*)- Mass Transfer Summary -(*) 
+
+ Fate                            Mass (kg)   
+                           Initial      Final     Change
+ ----                   ---------- ---------- ----------
+ in Fluid                1.040e-09  1.040e-09  0.000e+00
+ Trapped - Zone 12       1.596e-10  1.596e-10  0.000e+00
+ ----                   ---------- ---------- ----------
+ Net                     1.200e-09  1.200e-09  0.000e+00
+ Injected                1.200e-09
