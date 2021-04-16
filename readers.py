@@ -43,7 +43,7 @@ def read_zones(filepath):
                     continue
                 if len(line) != 5:
                     line.insert(3,'dummy')
-                print(line)
+                #print(line)
                 zones.loc[len(zones.index)+1] = line
     return zones
 
@@ -93,13 +93,23 @@ def dpm_reader(filepath):
                     row = row[4:]
                     row.insert(0,fate)
                     #print(type(row),' is the type')
-                    times.loc[len(times.index)+1] = row
+                    try:
+                        times.loc[len(times.index)+1] = row
+                    except:
+                        row.insert(6,row[7])
+                        times.loc[len(times.index)+1] = row
+                        print('FAILED APPEND: ',row)
                 elif 'Escaped' in row:
                     fate = ' '.join(row[0:4])
                     row = row[4:]
                     row.insert(0,fate)
                     #print(row)
-                    times.loc[len(times.index)+1] = row
+                    try:
+                        times.loc[len(times.index)+1] = row
+                    except:
+                        row.insert(6,row[7])
+                        times.loc[len(times.index)+1] = row
+                        print('FAILED APPEND: ',row)
                 elif 'Injected' in row:
                     totals['Particles'] = int(row[1])
                     #totals.append(row[1])
@@ -139,7 +149,21 @@ def dpm_reader(filepath):
                     row = row[4:]
                     row.insert(0,fate)
                     #print(row)
-                    mass.loc[len(mass.index)+1] = row
+                    try:
+                        mass.loc[len(times.index)+1] = row
+                    except:
+                        print('FAILED APPEND: ',row)
+                    #mass.loc[len(mass.index)+1] = row
+                elif 'Escaped' in row:
+                    fate = ' '.join(row[0:4])
+                    row = row[4:]
+                    row.insert(0,fate)
+                    #print(row)
+                    try:
+                        mass.loc[len(times.index)+1] = row
+                    except:
+                        print('FAILED APPEND: ',row)
+                    #mass.loc[len(mass.index)+1] = row
                 elif 'Injected' in row:
                     totals['Mass'] = float(row[1])
                     #print('toiaqui')

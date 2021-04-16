@@ -1,0 +1,95 @@
+
+Build Time: Apr 17 2019 13:39:08 EDT  Build Id: 10133 
+Executable Path: /apps/software/ANSYS/2019R2/v194/fluent/bin/fluent
+
+--------------------------------------------------------------------------------
+ID      Hostname        Core   O.S.      PID        Vendor                     
+--------------------------------------------------------------------------------
+n48-63  ccn038.cluster  16/16  Linux-64  3960-3975  Intel(R) Xeon(R) E5-2660 0 
+n47     ccn037.cluster  16/16  Linux-64  4274       Intel(R) Xeon(R) E5-2660 0 
+n46     ccn037.cluster  15/16  Linux-64  4273       Intel(R) Xeon(R) E5-2660 0 
+n45     ccn037.cluster  14/16  Linux-64  4272       Intel(R) Xeon(R) E5-2660 0 
+n44     ccn037.cluster  13/16  Linux-64  4271       Intel(R) Xeon(R) E5-2660 0 
+n43     ccn037.cluster  12/16  Linux-64  4270       Intel(R) Xeon(R) E5-2660 0 
+n42     ccn037.cluster  11/16  Linux-64  4269       Intel(R) Xeon(R) E5-2660 0 
+n41     ccn037.cluster  10/16  Linux-64  4268       Intel(R) Xeon(R) E5-2660 0 
+n40     ccn037.cluster  9/16   Linux-64  4267       Intel(R) Xeon(R) E5-2660 0 
+n39     ccn037.cluster  8/16   Linux-64  4265       Intel(R) Xeon(R) E5-2660 0 
+n38     ccn037.cluster  7/16   Linux-64  4264       Intel(R) Xeon(R) E5-2660 0 
+n37     ccn037.cluster  6/16   Linux-64  4263       Intel(R) Xeon(R) E5-2660 0 
+n36     ccn037.cluster  5/16   Linux-64  4262       Intel(R) Xeon(R) E5-2660 0 
+n35     ccn037.cluster  4/16   Linux-64  4261       Intel(R) Xeon(R) E5-2660 0 
+n34     ccn037.cluster  3/16   Linux-64  4260       Intel(R) Xeon(R) E5-2660 0 
+n33     ccn037.cluster  2/16   Linux-64  4259       Intel(R) Xeon(R) E5-2660 0 
+n32     ccn037.cluster  1/16   Linux-64  4258       Intel(R) Xeon(R) E5-2660 0 
+n16-31  ccn036.cluster  16/16  Linux-64  4168-4183  Intel(R) Xeon(R) E5-2660 0 
+n0-15   ccn035.cluster  16/16  Linux-64  7295-7310  Intel(R) Xeon(R) E5-2660 0 
+host    ccn035.cluster         Linux-64  3878       Intel(R) Xeon(R) E5-2660 0 
+
+MPI Option Selected: intel
+Selected system interconnect: InfiniBand
+--------------------------------------------------------------------------------
+ ok
+invalid command [ok]
+
+> /define/boundary-conditions/list-zones
+  id  name                       type                material              kind
+----  -------------------------  ------------------  --------------------  ----
+   2  unspecified                fluid               air                   cell
+  12  floor_1_teacher_mouth      velocity-inlet                            face
+  51  vent_11                    outflow                                   face
+  50  vent_1                     outflow                                   face
+  48  step_4_right_outlet        outflow                                   face
+  47  step_4_left_outlet         outflow                                   face
+  46  step_3_right_outlet        outflow                                   face
+  45  step_3_left_outlet         outflow                                   face
+  57  vent_41                    mass-flow-inlet                           face
+  56  vent_4                     mass-flow-inlet                           face
+  53  vent_21                    mass-flow-inlet                           face
+  52  vent_2                     mass-flow-inlet                           face
+  44  roof_main_inlet            mass-flow-inlet                           face
+  39  rear_right_door            wall                air                   face
+  32  floor_4_right_student_mouth  wall                air                   face
+  31  floor_4_middle_right_student_mouth  wall                air                   face
+  30  floor_4_middle_left_student_mouth  wall                air                   face
+  29  floor_4_left_student_mouth  wall                air                   face
+  25  floor_3_right_student_mouth  wall                air                   face
+  24  floor_3_middle_right_student_mouth  wall                air                   face
+  23  floor_3_middle_left_student_mouth  wall                air                   face
+  22  floor_3_left_student_mouth  wall                air                   face
+  18  floor_2_right_student_mouth  wall                air                   face
+  17  floor_2_middle_right_student_mouth  wall                air                   face
+  16  floor_2_middle_left_student_mouth  wall                air                   face
+  14  floor_2__left_student_mouth  wall                air                   face
+   9  floor_1_right_student_mouth  wall                air                   face
+   8  floor_1_middle_right_student_mouth  wall                air                   face
+   7  floor_1_middle_left_student_mouth  wall                air                   face
+   6  floor_1_left_student_mouth  wall                air                   face
+   3  interior-unspecified       interior                                  face
+   4  floor_1                    wall                air                   face
+   5  floor_1_desks              wall                air                   face
+  10  floor_1_students_body      wall                air                   face
+  11  floor_1_teacher_body       wall                air                   face
+  13  floor_2                    wall                air                   face
+  15  floor_2_desks              wall                air                   face
+  19  floor_2_students_body      wall                air                   face
+  20  floor_3                    wall                air                   face
+  21  floor_3_desks              wall                air                   face
+  26  floor_3_students_body      wall                air                   face
+  27  floor_4                    wall                air                   face
+  28  floor_4_desks              wall                air                   face
+  33  floor_4_students_body      wall                air                   face
+  34  front_left_wall            wall                air                   face
+  35  front_right_wall           wall                air                   face
+  36  front_wall                 wall                air                   face
+  37  left_wall                  wall                air                   face
+  38  rear_left_wall             wall                air                   face
+  40  rear_right_wall            wall                air                   face
+  41  rear_wall                  wall                air                   face
+  42  right_wall                 wall                air                   face
+  43  roof                       wall                air                   face
+  49  steps                      wall                air                   face
+  54  vent_3                     outflow                                   face
+  55  vent_31                    outflow                                   face
+
+> /file/stop-transcript

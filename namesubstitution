@@ -1,0 +1,3 @@
+#!/bin/bash
+for file in $(ls *_back*.sum && ls *_back*.dat);do
+    

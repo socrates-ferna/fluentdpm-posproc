@@ -1,0 +1,26 @@
+
+ Fate                   Number           Elapsed Time (s)                       Injection, Index              
+                                       Min        Max        Avg    Std Dev                  Min                  Max
+ ----                   ------  ---------- ---------- ---------- ---------- -------------------- --------------------
+ in Fluid               143065   1.000e-02  3.000e-01  1.548e-01  8.645e-02         teacher 469160         teacher 7480
+ Trapped - Zone 19          92   0.000e+00  9.979e-03  3.645e-03  2.083e-03                    0           front 2430
+ Trapped - Zone 28           3   3.580e-03  5.393e-03  4.342e-03  7.680e-04           right 298850           right 298852
+ Trapped - Zone 30          80   0.000e+00  9.545e-03  4.300e-03  2.024e-03                    0            back  980
+ Trapped - Zone 33          40   0.000e+00  9.903e-03  5.690e-03  3.029e-03                    0         teacher 10250
+ ----                   ------
+ Net                    143280
+ Injected               143280
+
+                    (*)- Mass Transfer Summary -(*) 
+
+ Fate                            Mass (kg)   
+                           Initial      Final     Change
+ ----                   ---------- ---------- ----------
+ in Fluid                3.596e-09  3.596e-09  0.000e+00
+ Trapped - Zone 19       1.797e-12  1.797e-12  0.000e+00
+ Trapped - Zone 28       1.008e-13  1.008e-13  0.000e+00
+ Trapped - Zone 30       1.673e-12  1.673e-12  0.000e+00
+ Trapped - Zone 33       3.648e-13  3.648e-13  0.000e+00
+ ----                   ---------- ---------- ----------
+ Net                     3.600e-09  3.600e-09  0.000e+00
+ Injected                3.600e-09
