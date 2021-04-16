@@ -15,7 +15,7 @@ from sys import argv
 # In[ ]:
 
 
-tecvars = ['Residence Time', 'X', 'Y', 'Z', 'U', 'V', 'W', 'Diameter', 'id']
+tecvars = ['Residence Time', 'X', 'Y', 'Z', 'U', 'V', 'W', 'Diameter', 'id', 'Current Time']
 
 
 # In[ ]:
