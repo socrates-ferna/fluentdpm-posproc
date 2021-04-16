@@ -1,0 +1,4 @@
+#!/bin/bash
+for file in $(ls *_2m*.sum && ls *_2m*.dat);do
+    echo $file
+done
