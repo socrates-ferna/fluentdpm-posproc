@@ -20,7 +20,7 @@ from glob import glob
 # In[3]:
 
 
-def plotagainstparam(resultdict,column,filterstring,instant,xlab,ylab,leg):
+def plotagainstparam(resultdict,column,filterstring,instant,leg):
     """
     Plots the result of a percentage value across the studied parameter variation.
     Example: plotagainstparam(timesdict,'Particle %','student') will sum all % of particles
@@ -35,9 +35,9 @@ def plotagainstparam(resultdict,column,filterstring,instant,xlab,ylab,leg):
         ylist.append(df[column].loc[df.Fate.str.contains(fr"{filterstring}",regex=True)].loc[instant].sum())
         
     plt.plot(xlist,ylist,label=leg)
-    plt.xlabel(xlab)
-    plt.ylabel(ylab)
-    plt.legend()
+    #plt.xlabel(xlab)
+    #plt.ylabel(ylab)
+    #plt.legend()
 
 
 # In[4]:

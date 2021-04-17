@@ -99,7 +99,7 @@ def dpm_reader(filepath):
                     except:
                         row.insert(6,row[7])
                         times.loc[len(times.index)+1] = row
-                        print('FAILED APPEND: ',row)
+                        print('FIXED APPEND: ',row)
                 elif 'Escaped' in row:
                     fate = ' '.join(row[0:4])
                     row = row[4:]
@@ -110,7 +110,7 @@ def dpm_reader(filepath):
                     except:
                         row.insert(6,row[7])
                         times.loc[len(times.index)+1] = row
-                        print('FAILED APPEND: ',row)
+                        print('FIXED APPEND: ',row)
                 elif 'Injected' in row:
                     totals['Particles'] = int(row[1])
                     #totals.append(row[1])
