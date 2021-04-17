@@ -11,6 +11,7 @@
 
 import pandas as pd
 import csv
+import numpy as np
 def clean_row(row):
     row = [x for x in row[:] if x]
     return row
@@ -202,13 +203,27 @@ def matchnames(zones,df):
     then, it replaces the ids with the names to facilitate the labeling in plots
     Usage: dataframe, matchlist = matchnames(zones,dataframe)
     """
+    
     trapids = df['Fate'].loc[df['Fate'].str.contains(r'\d{1,2}',regex=True)].to_list()
-    #print(trapids)
-    matchlist = zones.id.isin(trapids)
-    #print(matchlist)
-    df['Fate'] = df.Fate.replace(to_replace=trapids, value=zones.name.loc[matchlist])
+    print(trapids)
+    idlist = [s.replace('Escaped','').replace('Trapped','').replace(' - Zone ','') for s in trapids]
+    print(idlist)
+    loclist = [zones.name.loc[zones.id.str.contains(elem,regex=False)].iloc[0] for elem in idlist]
+    for idx,fate in enumerate(trapids):
+        if 'Trapped' in fate:
+            loclist[idx] = 'Trapped ' + loclist[idx]
+        elif 'Escaped' in fate:
+            loclist[idx] = 'Escaped ' + loclist[idx]
+        else:
+            print('WARNING: Unkown fate assigned to the surface: ',fate)
+    #matchlist = [zones.id.str.contains(elem,regex=False) for elem in idlist]
+    #print(matchlist[0],type(matchlist[0]))
+    #print(zones.name.loc[matchlist[0]])
+    #valuelist = [zones.name.loc[match] for match in matchlist]
+    #print(valuelist)
+    df['Fate'] = df.Fate.replace(to_replace=trapids, value=loclist)
     #print(df)
-    return df, matchlist
+    return df, loclist
 
 
 # In[ ]:
