@@ -93,7 +93,7 @@ def dpm_reader(filepath):
                     fate = ' '.join(row[0:4])
                     row = row[4:]
                     row.insert(0,fate)
-                    #print(type(row),' is the type')
+                    print(type(row),' is the type')
                     try:
                         times.loc[len(times.index)+1] = row
                     except:
@@ -205,9 +205,9 @@ def matchnames(zones,df):
     """
     
     trapids = df['Fate'].loc[df['Fate'].str.contains(r'\d{1,2}',regex=True)].to_list()
-    print(trapids)
+    #print(trapids)
     idlist = [s.replace('Escaped','').replace('Trapped','').replace(' - Zone ','') for s in trapids]
-    print(idlist)
+    #print(idlist)
     loclist = [zones.name.loc[zones.id.str.contains(elem,regex=False)].iloc[0] for elem in idlist]
     for idx,fate in enumerate(trapids):
         if 'Trapped' in fate:
