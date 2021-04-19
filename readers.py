@@ -93,7 +93,7 @@ def dpm_reader(filepath):
                     fate = ' '.join(row[0:4])
                     row = row[4:]
                     row.insert(0,fate)
-                    print(type(row),' is the type')
+                    #print(type(row),' is the type')
                     try:
                         times.loc[len(times.index)+1] = row
                     except:
