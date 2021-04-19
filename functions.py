@@ -167,7 +167,7 @@ def read_results(casename):  #DEBERÍA PODER PASARLE SOLO EL CASENAME
     print('Reading ' + casename + ' summaries')
     for file in glob(globname):
         #print(file)
-        instant = file.removesuffix('.sum').removeprefix(casename + '_')
+        instant = file.replace('.sum','').replace(casename + '_','')
         #print(instant)
         instantfloat = round(float(instant),2)
         timesdf, massdf, totals = readers.dpm_reader(file)
