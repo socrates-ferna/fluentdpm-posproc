@@ -99,7 +99,7 @@ def dpm_reader(filepath):
                     except:
                         row.insert(6,row[7])
                         times.loc[len(times.index)+1] = row
-                        print('FIXED APPEND: ',row)
+                        #print('FIXED APPEND: ',row)
                 elif 'Escaped' in row:
                     fate = ' '.join(row[0:4])
                     row = row[4:]
@@ -110,18 +110,18 @@ def dpm_reader(filepath):
                     except:
                         row.insert(6,row[7])
                         times.loc[len(times.index)+1] = row
-                        print('FIXED APPEND: ',row)
+                        #print('FIXED APPEND: ',row)
                 elif 'Injected' in row:
                     totals['Particles'] = int(row[1])
                     #totals.append(row[1])
                     counter += 1
-                    print('COUNTER IS',counter)
+                    #print('COUNTER IS',counter)
                     continue
                 else:
                     try:
                         times.loc[len(times.index)+1] = row
                     except:
-                        print('Unconsidered Fate:',row[0:3])
+                        #print('Unconsidered Fate:',row[0:3])
                         continue
             elif counter == 2:
                 row = clean_row(line)
@@ -163,7 +163,8 @@ def dpm_reader(filepath):
                     try:
                         mass.loc[len(times.index)+1] = row
                     except:
-                        print('FAILED APPEND: ',row)
+                        #print('FAILED APPEND: ',row)
+                        continue
                     #mass.loc[len(mass.index)+1] = row
                 elif 'Injected' in row:
                     totals['Mass'] = float(row[1])
@@ -175,10 +176,10 @@ def dpm_reader(filepath):
                         if readmass:
                             mass.loc[len(mass.index)+1] = row
                         else:
-                            print('ignore line',row)
+                            #print('ignore line',row)
                             continue
                     except:
-                        print('Unconsidered Fate:',row[0:3])
+                        #print('Unconsidered Fate:',row[0:3])
                         continue
             else:
                 print('finished reading')
@@ -205,9 +206,9 @@ def matchnames(zones,df):
     """
     
     trapids = df['Fate'].loc[df['Fate'].str.contains(r'\d{1,2}',regex=True)].to_list()
-    print(trapids)
+    #print(trapids)
     idlist = [s.replace('Escaped','').replace('Trapped','').replace(' - Zone ','') for s in trapids]
-    print(idlist)
+    #print(idlist)
     loclist = [zones.name.loc[zones.id.str.contains(elem,regex=False)].iloc[0] for elem in idlist]
     for idx,fate in enumerate(trapids):
         if 'Trapped' in fate:

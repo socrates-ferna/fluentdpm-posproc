@@ -13,11 +13,58 @@ import matplotlib.pyplot as plt
 import readers
 #from functions import plotagainstparam, percentage, read_results
 import pandas as pd
+import numpy as np
 import csv
 from glob import glob
 
 
 # In[3]:
+
+def buildacrossdict(resultdict,col,filt,instant):
+    ylist = []
+    for param,df in resultdict.items():
+        try:
+            ylist.append(df[col].loc[df.Fate.str.contains(fr"{filt}",regex=True)].loc[instant].sum())
+        except:
+            ylist.append(0.0)
+    return ylist
+
+def barplot(resultdict,col,instant,fates):
+    print('The function returns figure handle, ax.handles in a dict and bar lists in a dict with the passed fates as keys')
+    print('Example: fig,ax,handles,bars = barplot(timesdict,"Particles %",60,["desk","in Fluid","Escaped","student"]')
+    print('                                                                ^                      ^')
+    print('                                                                |                      |')
+    print('                                                               instant     list of fates/surfaces to search for')
+    print('--------------------------------------------------------------------------------')
+    labels = resultdict.keys()
+    bars = {}
+    handles = {}
+    x = np.arange(len(labels))
+    width = 0.2
+    i = 0.0
+    n = len(fates)
+    fig, ax = plt.subplots()
+    for fate in fates:
+        i += 1
+        try:
+            bars[fate] = buildacrossdict(resultdict,col,fate,instant)
+            handles[fate] = ax.bar(x+width*(-n/2+i-0.5),bars[fate],width,label=fate)
+        except:
+            print('No fate found, skipping bar:', fate)
+            continue
+    #ax.set_xticks(x)
+    #ax.set_xtickslabels(labels)
+    #ax.legend()
+    #ax.ylabel(col)
+    print('Useful Commands:')
+    print('ax.set_ylabel()')
+    print('ax.set_title()')
+    print('ax.set_xticks()')
+    print('ax.set_xtickslabels')
+    print('ax.legend()')
+    print('ax.bar_label(handles[fate],padding=3)')
+    print('plt.show()')
+    return fig,ax,handles,bars
 
 
 def plotagainstparam(resultdict,column,filterstring,instant,leg):
@@ -27,13 +74,8 @@ def plotagainstparam(resultdict,column,filterstring,instant,leg):
     trapped by students in each dataframe of times dict and will plot that agains the variation
     parameter (e.g. social distance in x-axis and % of particles in y-axis)
     """
-    xlist = []
-    ylist = []
-    for param,df in resultdict.items():
-        #we sum all particles trapped in a surface
-        xlist.append(param)
-        ylist.append(df[column].loc[df.Fate.str.contains(fr"{filterstring}",regex=True)].loc[instant].sum())
-        
+    xlist = resultdict.keys()
+    ylist = buildacrossdict(resultdict,column,filterstring,instant)
     plt.plot(xlist,ylist,label=leg)
     #plt.xlabel(xlab)
     #plt.ylabel(ylab)
@@ -101,6 +143,7 @@ def read_results(casename):  #DEBERÍA PODER PASARLE SOLO EL CASENAME
     
     """
     #casename = casename + '_'
+    print('Read zones: ' + casename + '.zones')
     zones = readers.read_zones(casename + '.zones')
     masslist = []
     timeslist = []
@@ -121,8 +164,9 @@ def read_results(casename):  #DEBERÍA PODER PASARLE SOLO EL CASENAME
     massts = pd.DataFrame(columns=masscols)
     timests = pd.DataFrame(columns=timecols)
     totalsts = pd.DataFrame(columns=totcols)
+    print('Reading ' + casename + ' summaries')
     for file in glob(globname):
-        print(file)
+        #print(file)
         instant = file.removesuffix('.sum').removeprefix(casename + '_')
         #print(instant)
         instantfloat = round(float(instant),2)
@@ -135,7 +179,7 @@ def read_results(casename):  #DEBERÍA PODER PASARLE SOLO EL CASENAME
         timests = timests.append(timesdf,ignore_index=True)
         massts = massts.append(massdf,ignore_index=True)
         totalsts = totalsts.append(totals, ignore_index=True)
-        print(totals)
+        #print(totals)
         #break
         #print(timeseriestimes)
         #print(timeseriesmass)
@@ -154,7 +198,9 @@ def build(casename,plist):
     massdict = dict.fromkeys(plist)
     zonesdict = dict.fromkeys(plist)
     totalsdict = dict.fromkeys(plist)
+    print('start building...')
     for i in plist:
+        print('building ',i)
         zonesdict[i],timesdict[i], massdict[i], totalsdict[i] = read_results(casename + '_' + str(i))
     return zonesdict, timesdict, massdict, totalsdict
 
