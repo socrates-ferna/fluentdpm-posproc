@@ -74,7 +74,7 @@ def plotagainstparam(resultdict,column,filterstring,instant,leg):
     trapped by students in each dataframe of times dict and will plot that agains the variation
     parameter (e.g. social distance in x-axis and % of particles in y-axis)
     """
-    xlist = resultdict.keys()
+    xlist = list(resultdict.keys())
     ylist = buildacrossdict(resultdict,column,filterstring,instant)
     plt.plot(xlist,ylist,label=leg)
     #plt.xlabel(xlab)
