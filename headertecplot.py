@@ -28,7 +28,7 @@ def main(casename):
     search = casename + '*'
     for name in glob(search):
         print('Input File: ', name)
-        timestr = name.removesuffix('.dat').removeprefix(casename) #here prefix will be casename in final version
+        timestr = name.replace('.dat','').replace(casename,'') #here prefix will be casename in final version
         time = round(float(timestr),2)
         timestr = str(time)
         roundname = casename + timestr + '.dat'
