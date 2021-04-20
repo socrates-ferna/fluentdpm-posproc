@@ -151,7 +151,7 @@ def dpm_reader(filepath):
                     row.insert(0,fate)
                     #print(row)
                     try:
-                        mass.loc[len(times.index)+1] = row
+                        mass.loc[len(mass.index)+1] = row
                     except:
                         print('FAILED APPEND: ',row)
                     #mass.loc[len(mass.index)+1] = row
@@ -161,7 +161,7 @@ def dpm_reader(filepath):
                     row.insert(0,fate)
                     #print(row)
                     try:
-                        mass.loc[len(times.index)+1] = row
+                        mass.loc[len(mass.index)+1] = row
                     except:
                         #print('FAILED APPEND: ',row)
                         continue
