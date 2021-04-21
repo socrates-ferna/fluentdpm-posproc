@@ -242,23 +242,24 @@ def plotagainsttime(resultdict,fatelist,column='Particles %',mix=False,savefig=T
             for f in fatelist:
                 filtsum = df[column].loc[df.Fate.str.contains(fr"{f}",regex=True)].sum(axis=0,level='flowtime').reset_index(level='flowtime')
                 plt.plot('flowtime',column,data=filtsum,label=f)
-            plt.title(str(key) + ' time evolution',bbox_inches='tight')
+            plt.title(str(key) + ' time evolution')
             plt.xlabel('flow time')
             plt.ylabel(column)
             plt.legend()
             if savefig:
-                plt.savefig(str(key)+'_'+column.replace(' ','').replace('%','')+'.pdf')
+                plt.savefig(str(key)+'_'+column.replace(' ','').replace('%','')+'.pdf', bbox_inches="tight" )
     elif mix == True:
         for key,df in resultdict.items():
             for f in fatelist:
                 filtsum = df[column].loc[df.Fate.str.contains(fr"{f}",regex=True)].sum(axis=0,level='flowtime').reset_index(level='flowtime')
                 plt.plot('flowtime',column,data=filtsum,label=' '.join([str(key),f]))
+            plt.title('Time evolution of selected parameters')
+            plt.xlabel('flow time')
+            plt.ylabel(column)
+            plt.legend()
             if savefig:
-                plt.savefig('mixedtimeevo.pdf',bbox_inches='tight')
-        plt.title('Time evolution of selected parameters')
-        plt.xlabel('flow time')
-        plt.ylabel(column)
-        plt.legend()
+                plt.savefig('mixedtimeevo.pdf',bbox_inches="tight")
+        
     else:
         print('mix is neither True nor False, please pass mix=True or mix=False')
 
