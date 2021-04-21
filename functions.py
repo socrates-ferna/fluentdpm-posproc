@@ -216,7 +216,7 @@ def matchallnames(tdict,mdict,zns,parameter):
 def instant_to_latex(resultdict,cols,instant):
     k = list(resultdict.keys())
     for key,df in resultdict.items(): 
-        df[cols].loc[60].to_latex(buf='_'.join([str(key),str(instant),'.tex']),index=False,float_format="{:0.2f}".format)
+        df[cols].loc[instant].to_latex(buf='_'.join([str(key),str(instant),'.tex']),index=False,float_format="{:0.2f}".format)
 
 def column_across_param(resultdict,col,instant,latex=False):
     k = list(resultdict.keys())
@@ -225,3 +225,28 @@ def column_across_param(resultdict,col,instant,latex=False):
     
     df = pd.DataFrame(columns=array)
     return df
+
+def dropfates(resultdict,searchlist):
+    newdict = dict.fromkeys(resultdict.keys())
+    for key,df in resultdict.items():
+        newdf = df
+        for match in searchlist:
+            newdf = newdf[~newdf.Fate.str.contains(match,regex=True)]
+        newdict[key] = newdf
+    return newdict
+
+def plotagainsttime(resultdict,fatelist,column='Particles %',mix=False,savefig=True):
+    if mix == False:
+        for key,df in resultdict.items():
+            plt.figure()
+            for f in fates:
+                filtsum = df[column].loc[df.Fate.str.contains(fr"{f}",regex=True)].sum(axis=0,level='flowtime').reset_index(level='flowtime')
+                plt.plot('flowtime',column,data=filtsum,label=f)
+            plt.title(str(key) + ' time evolution')
+            plt.xlabel('flow time')
+            plt.ylabel(column)
+            plt.legend()
+            if savefig:
+                plt.savefig(str(key)+'.png')
+    else:
+        print('not available yet')
