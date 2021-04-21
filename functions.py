@@ -239,7 +239,7 @@ def plotagainsttime(resultdict,fatelist,column='Particles %',mix=False,savefig=T
     if mix == False:
         for key,df in resultdict.items():
             plt.figure()
-            for f in fates:
+            for f in fatelist:
                 filtsum = df[column].loc[df.Fate.str.contains(fr"{f}",regex=True)].sum(axis=0,level='flowtime').reset_index(level='flowtime')
                 plt.plot('flowtime',column,data=filtsum,label=f)
             plt.title(str(key) + ' time evolution')
@@ -250,3 +250,6 @@ def plotagainsttime(resultdict,fatelist,column='Particles %',mix=False,savefig=T
                 plt.savefig(str(key)+'.png')
     else:
         print('not available yet')
+def changekey(d,old,new):   #PENDING
+    d[new] = d.pop(old)
+#map(changekey,[timesmixdict,massmixdict,totalsmixdict],zonesmixdict)
