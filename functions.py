@@ -242,14 +242,27 @@ def plotagainsttime(resultdict,fatelist,column='Particles %',mix=False,savefig=T
             for f in fatelist:
                 filtsum = df[column].loc[df.Fate.str.contains(fr"{f}",regex=True)].sum(axis=0,level='flowtime').reset_index(level='flowtime')
                 plt.plot('flowtime',column,data=filtsum,label=f)
-            plt.title(str(key) + ' time evolution')
+            plt.title(str(key) + ' time evolution',bbox_inches='tight')
             plt.xlabel('flow time')
             plt.ylabel(column)
             plt.legend()
             if savefig:
-                plt.savefig(str(key)+'.png')
+                plt.savefig(str(key)+'_'+column.replace(' ','').replace('%','')+'.pdf')
+    elif mix == True:
+        for key,df in resultdict.items():
+            for f in fatelist:
+                filtsum = df[column].loc[df.Fate.str.contains(fr"{f}",regex=True)].sum(axis=0,level='flowtime').reset_index(level='flowtime')
+                plt.plot('flowtime',column,data=filtsum,label=' '.join([str(key),f]))
+            if savefig:
+                plt.savefig('mixedtimeevo.pdf',bbox_inches='tight')
+        plt.title('Time evolution of selected parameters')
+        plt.xlabel('flow time')
+        plt.ylabel(column)
+        plt.legend()
     else:
-        print('not available yet')
+        print('mix is neither True nor False, please pass mix=True or mix=False')
+
 def changekey(d,old,new):   #PENDING
     d[new] = d.pop(old)
+    return d
 #map(changekey,[timesmixdict,massmixdict,totalsmixdict],zonesmixdict)
