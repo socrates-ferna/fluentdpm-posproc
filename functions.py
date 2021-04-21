@@ -204,3 +204,24 @@ def build(casename,plist):
         zonesdict[i],timesdict[i], massdict[i], totalsdict[i] = read_results(casename + '_' + str(i))
     return zonesdict, timesdict, massdict, totalsdict
 
+def matchallnames(tdict,mdict,zns,parameter):
+    for elem in parameter:
+        tdict[elem],matchlist = readers.matchnames(zns[elem],tdict[elem])
+        print('timesdict name substitution ' + str(elem))
+        #print(matchlist)
+        mdict[elem],matchlist = readers.matchnames(zns[elem],mdict[elem])
+        print('massdict name substitution ' + str(elem))
+        #print(matchlist)
+
+def instant_to_latex(resultdict,cols,instant):
+    k = list(resultdict.keys())
+    for key,df in resultdict.items(): 
+        df[cols].loc[60].to_latex(buf='_'.join([str(key),str(instant),'.tex']),index=False,float_format="{:0.2f}".format)
+
+def column_across_param(resultdict,col,instant,latex=False):
+    k = list(resultdict.keys())
+    level = [col+' at t='+str(instant)+'s'] * len(k)
+    array = [np.array(level),np.array(k)]
+    
+    df = pd.DataFrame(columns=array)
+    return df

@@ -209,7 +209,7 @@ def matchnames(zones,df):
     #print(trapids)
     idlist = [s.replace('Escaped','').replace('Trapped','').replace(' - Zone ','') for s in trapids]
     #print(idlist)
-    loclist = [zones.name.loc[zones.id.str.contains(elem,regex=False)].iloc[0] for elem in idlist]
+    loclist = [zones.name.loc[zones.id == elem] for elem in idlist]
     for idx,fate in enumerate(trapids):
         if 'Trapped' in fate:
             loclist[idx] = 'Trapped ' + loclist[idx]
