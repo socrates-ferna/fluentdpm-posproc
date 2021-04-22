@@ -213,10 +213,12 @@ def matchallnames(tdict,mdict,zns,parameter):
         print('massdict name substitution ' + str(elem))
         #print(matchlist)
 
-def instant_to_latex(resultdict,cols,instant):
+def instant_to_latex(resultdict,cols,instant,printdf=True):
     k = list(resultdict.keys())
     for key,df in resultdict.items(): 
         df[cols].loc[instant].to_latex(buf='_'.join([str(key),str(instant),'.tex']),index=False,float_format="{:0.2f}".format)
+        if printdf:
+            print(df[cols].loc[instant].to_markdown())
 
 def dropfates(resultdict,searchlist):
     if isinstance(resultdict,dict):
@@ -227,9 +229,21 @@ def dropfates(resultdict,searchlist):
                 newdf = newdf[~newdf.Fate.str.contains(match,regex=True)]
             newdict[key] = newdf
     elif isinstance(resultdict,pd.DataFrame):
-        for match in searchlist:
+        if isinstance(resultdict.columns,pd.core.indexes.multi.MultiIndex):
+            newdf = resultdict
+            idx = pd.IndexSlice
+            for match in searchlist:
+                newdf = newdf.loc[~newdf.loc[:,idx[:,'Fate']].squeeze().str.contains(match,regex=True)]
+            newdict = newdf
+        elif isinstance(resultdict.columns,pd.core.indexes.base.Index):
+            newdf = resultdict
+            for match in searchlist:
                 newdf = newdf[~newdf.Fate.str.contains(match,regex=True)]
-            newdict[key] = newdf
+            newdict = newdf
+        else:
+            print('I dont know the columns index type of resultdict. It must be either pandas.core.indexes.base.Index or pandas.core.indexes.multi.MultiIndex. Check it with type(resultdict.columns)')
+    else:
+        print('I only support dictionaries or DataFrames as first argument')
     return newdict
 
 def plotagainsttime(resultdict,fatelist,column='Particles %',mix=False,savefig=True):
@@ -264,7 +278,7 @@ def changekey(d,old,new):   #PENDING
     d[new] = d.pop(old)
     return d
 
-def colacrossparam(resultdict,instant,col='Particles %',to_latex=False):
+def colacrossparam(resultdict,instant,col='Particles %'):
     fates = pd.Series(dtype='string')
     k = list(resultdict.keys())
     k.insert(0,'Fate')
