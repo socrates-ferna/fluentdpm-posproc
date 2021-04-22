@@ -39,7 +39,7 @@ def barplot(resultdict,col,instant,fates):
     labels = resultdict.keys()
     bars = {}
     handles = {}
-    x = np.arange(len(labels))
+    x = 1.5*np.arange(len(labels))
     width = 0.2
     i = 0.0
     n = len(fates)
@@ -218,21 +218,18 @@ def instant_to_latex(resultdict,cols,instant):
     for key,df in resultdict.items(): 
         df[cols].loc[instant].to_latex(buf='_'.join([str(key),str(instant),'.tex']),index=False,float_format="{:0.2f}".format)
 
-def column_across_param(resultdict,col,instant,latex=False):
-    k = list(resultdict.keys())
-    level = [col+' at t='+str(instant)+'s'] * len(k)
-    array = [np.array(level),np.array(k)]
-    
-    df = pd.DataFrame(columns=array)
-    return df
-
 def dropfates(resultdict,searchlist):
-    newdict = dict.fromkeys(resultdict.keys())
-    for key,df in resultdict.items():
-        newdf = df
+    if isinstance(resultdict,dict):
+        newdict = dict.fromkeys(resultdict.keys())
+        for key,df in resultdict.items():
+            newdf = df
+            for match in searchlist:
+                newdf = newdf[~newdf.Fate.str.contains(match,regex=True)]
+            newdict[key] = newdf
+    elif isinstance(resultdict,pd.DataFrame):
         for match in searchlist:
-            newdf = newdf[~newdf.Fate.str.contains(match,regex=True)]
-        newdict[key] = newdf
+                newdf = newdf[~newdf.Fate.str.contains(match,regex=True)]
+            newdict[key] = newdf
     return newdict
 
 def plotagainsttime(resultdict,fatelist,column='Particles %',mix=False,savefig=True):
@@ -266,4 +263,26 @@ def plotagainsttime(resultdict,fatelist,column='Particles %',mix=False,savefig=T
 def changekey(d,old,new):   #PENDING
     d[new] = d.pop(old)
     return d
+
+def colacrossparam(resultdict,instant,col='Particles %',to_latex=False):
+    fates = pd.Series(dtype='string')
+    k = list(resultdict.keys())
+    k.insert(0,'Fate')
+    level = [col] * len(k)
+    tuples = zip(level,k)
+    index = pd.MultiIndex.from_tuples(tuples)
+    resultdf = pd.DataFrame(columns=index)
+    idx = pd.IndexSlice
+    #print(resultdf)
+    for key,df in resultdict.items():
+        fates = fates.append(df.loc[instant,'Fate'],ignore_index=True)
+        fates = fates.drop_duplicates()
+    fates.reset_index(drop=True,inplace=True)
+    #print(fates)
+    for key,df in resultdict.items():
+        dfinst = df.loc[instant]
+        result = [dfinst[col].loc[dfinst.Fate == x].iloc[0] if (dfinst.Fate == x).any() else '-' for x in fates]
+        resultdf.loc[:,idx[col,key]] = result
+    resultdf.loc[:,idx[col,'Fate']] = fates
+    return resultdf
 #map(changekey,[timesmixdict,massmixdict,totalsmixdict],zonesmixdict)
